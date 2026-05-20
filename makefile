@@ -1,6 +1,6 @@
 .PHONY: help install install-dev test lint format type-check clean run build
 
-# Python executable (uses whatever is in PATH - activate your environment first!)
+# Python executable (uses whatever is in PATH)
 PYTHON := python
 
 # Default target
@@ -18,16 +18,14 @@ help:
 	@echo ""
 	@echo "NOTE: This project uses uv for fast package management."
 	@echo "      Install uv: pip install uv"
-	@echo "      Activate your Python environment before running these commands!"
-	@echo "      (e.g., 'conda activate environment-name' or 'source venv/bin/activate')"
 
 # Install package
 install:
-	uv pip install -e .
+	uv pip install -e . --system
 
 # Install with dev dependencies
 install-dev:
-	uv pip install -e ".[dev]"
+	uv pip install -e ".[dev]" --system
 
 # Run tests
 test:
@@ -68,13 +66,3 @@ build:
 # Combined quality check
 check: lint type-check test
 	@echo "All checks passed!"
-
-# Setup development environment
-setup:
-	@echo "Setting up development environment..."
-	@echo "1. Install uv (if not already installed):"
-	@echo "   pip install uv"
-	@echo "2. Create and activate a Python 3.12+ environment:"
-	@echo "   - Using conda: conda create -n myenv python=3.12 && conda activate myenv"
-	@echo "   - Using venv: python -m venv .venv && source .venv/bin/activate"
-	@echo "3. Then run: make install-dev"
